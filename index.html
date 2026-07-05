@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Media Pembelajaran Interaktif</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+/* BACKGROUND UTAMA */
+body{
+    background:linear-gradient(135deg,#ffe4ec,#ffd6e7,#ffeef8);
+}
+
+/* HALAMAN PEMBUKA */
+#welcome{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    background:linear-gradient(135deg,#ff69b4,#ff85c1,#ffb6d9);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color:white;
+    z-index:9999;
+    text-align:center;
+    padding:20px;
+}
+
+#welcome h1{
+    font-size:50px;
+    margin-bottom:20px;
+}
+
+#welcome h2{
+    margin-bottom:15px;
+}
+
+#welcome p{
+    font-size:20px;
+    margin-bottom:30px;
+}
+
+.start-btn{
+    background:white;
+    color:#ff4f9a;
+    border:none;
+    padding:18px 35px;
+    border-radius:25px;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 5px 15px rgba(255,105,180,.3);
+}
+
+.start-btn:hover{
+    transform:scale(1.08);
+    background:#fff0f7;
+}
+
+/* HEADER */
+header{
+    background:linear-gradient(135deg,#ff69b4,#ff85c1,#ffb6d9);
+    color:white;
+    text-align:center;
+    padding:40px 20px;
+    box-shadow:0 5px 15px rgba(255,105,180,.3);
+}
+
+header h1{
+    font-size:38px;
+}
+
+header h2{
+    margin-top:10px;
+    font-weight:400;
+}
+
+header p{
+    margin-top:10px;
+}
+
+/* MENU */
+.menu{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    padding:25px;
+}
+
+.btn{
+    background:white;
+    color:#ff4f9a;
+    border:none;
+    padding:15px 25px;
+    border-radius:20px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 5px 15px rgba(255,105,180,.2);
+}
+
+.btn:hover{
+    transform:translateY(-5px);
+    background:#fff0f7;
+    box-shadow:0 10px 25px rgba(255,105,180,.4);
+}
+
+/* HALAMAN */
+.page{
+    display:none;
+    background:#ffffff;
+    max-width:1000px;
+    margin:20px auto;
+    padding:30px;
+    border-radius:25px;
+    box-shadow:0 5px 20px rgba(255,105,180,.2);
+}
+
+.active{
+    display:block;
+}
+
+/* TABEL */
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+th{
+    background:#ff69b4;
+    color:white;
+}
+
+th,td{
+    border:1px solid #ffd6e7;
+    padding:15px;
+    text-align:left;
+}
+
+th.center, td.center{
+    text-align:center;
+}
+
+td{
+    background:#fff8fb;
+}
+
+/* CARD */
+.card{
+    background:#fff0f7;
+    padding:20px;
+    border-radius:20px;
+    margin-top:15px;
+    border-left:6px solid #ff69b4;
+    box-shadow:0 3px 10px rgba(255,105,180,.15);
+}
+
+.card h3 {
+    color: #d63384;
+    margin-bottom: 10px;
+}
+
+/* FOOTER */
+.footer{
+    text-align:center;
+    padding:20px;
+    color:#d63384;
+    font-weight:600;
+}
+
+/* VIDEO */
+iframe{
+    width:100%;
+    height:500px;
+    border:none;
+    border-radius:20px;
+    box-shadow:0 5px 15px rgba(255,105,180,.2);
+}
+
+/* KUIS STYLE */
+.quiz-option {
+    display: block;
+    background: #fff;
+    border: 2px solid #ffd6e7;
+    padding: 10px 15px;
+    margin: 8px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.quiz-option:hover {
+    background: #ffeef8;
+}
+</style>
+
+<script>
+function showPage(id){
+    let pages=document.getElementsByClassName("page");
+    for(let i=0;i<pages.length;i++){
+        pages[i].classList.remove("active");
+    }
+    document.getElementById(id).classList.add("active");
+}
+
+function startLearning(){
+    document.getElementById("welcome").style.display="none";
+}
+
+// Fungsi sederhana untuk cek jawaban kuis
+function checkAnswer(option, isCorrect) {
+    if(isCorrect) {
+        option.style.background = "#d4edda";
+        option.style.borderColor = "#c3e6cb";
+        alert("Benar sekali! 🎉");
+    } else {
+        option.style.background = "#f8d7da";
+        option.style.borderColor = "#f5c6cb";
+        alert("Ups! Coba lagi ya. ❌");
+    }
+}
+</script>
+
+</head>
+
+<body>
+
+<div id="welcome">
+    <h1>📚 MEDIA PEMBELAJARAN INTERAKTIF</h1>
+    <h2>Greeting and Introduction</h2>
+    <p>
+        Kurikulum Merdeka<br>
+        Bahasa Inggris Fase E | Kelas X SMK
+    </p>
+    <button class="start-btn" onclick="startLearning()">
+        ▶ Mulai Pembelajaran
+    </button>
+</div>
+
+<header>
+    <h1>📚 MEDIA PEMBELAJARAN INTERAKTIF</h1>
+    <h2>Greeting and Introduction</h2>
+    <p>Kurikulum Merdeka | Bahasa Inggris Fase E | Kelas X SMK</p>
+</header>
+
+<div class="menu">
+    <button class="btn" onclick="showPage('home')">🏠 Home</button>
+    <button class="btn" onclick="showPage('materi1')">📖 Greeting</button>
+    <button class="btn" onclick="showPage('materi2')">👋 Introduction</button>
+    <button class="btn" onclick="showPage('latihan')">✍️ Latihan</button>
+    <button class="btn" onclick="showPage('game')">🎮 Game</button>
+    <button class="btn" onclick="showPage('video')">🎥 Video</button>
+    <button class="btn" onclick="showPage('profil')">👩‍🎓 Profil</button>
+</div>
+
+<div id="home" class="page active">
+    <h2>Selamat Datang 👋</h2>
+    <div class="card">
+        <h3>Tentang Media Pembelajaran</h3>
+        Media pembelajaran ini dirancang khusus untuk siswa Kelas X SMK (Fase E) guna memahami konsep dasar <b>Greetings (Ungkapan Salam)</b> dan <b>Introduction (Memperkenalkan Diri)</b> dalam Bahasa Inggris dengan pendekatan Kurikulum Merdeka.
+    </div>
+    <div class="card">
+        <h3>Capaian Pembelajaran (CP)</h3>
+        Pada akhir Fase E, siswa dapat menggunakan bahasa Inggris untuk berkomunikasi dengan guru, teman sebaya, dan orang lain dalam berbagai situasi formal dan informal.
+    </div>
+    <div class="card">
+        💡 Silakan pilih menu di atas untuk mulai menjelajahi materi, menonton video, atau bermain game kuis!
+    </div>
+</div>
+
+<div id="materi1" class="page">
+    <h2>📖 Materi 1: Greetings & Leave-Taking</h2>
+    <div class="card">
+        Greeting adalah ungkapan yang digunakan untuk menyapa orang lain. Greeting dibagi menjadi dua jenis: <b>Formal</b> (situasi resmi/dengan orang yang lebih tua) dan <b>Informal</b> (situasi santai/teman sebaya).
+    </div>
+
+    <h3>1. Formal Greetings</h3>
+    <table>
+        <tr>
+            <th>Expression (Ungkapan)</th>
+            <th>Response (Tanggapan)</th>
+            <th>Meaning (Arti)</th>
+        </tr>
+        <tr>
+            <td>Good morning</td>
+            <td>Good morning</td>
+            <td>Selamat pagi</td>
+        </tr>
+        <tr>
+            <td>Good afternoon</td>
+            <td>Good afternoon</td>
+            <td>Selamat siang/sore</td>
+        </tr>
+        <tr>
+            <td>Good evening</td>
+            <td>Good evening</td>
+            <td>Selamat malam</td>
+        </tr>
+        <tr>
+            <td>How are you?</td>
+            <td>I am fine, thank you.</td>
+            <td>Bagaimana kabar Anda?</td>
+        </tr>
+        <tr>
+            <td>How do you do?*</td>
+            <td>How do you do?</td>
+            <td>Salam kenal (baru pertama ketemu)</td>
+        </tr>
+    </table>
+    <p><i>*Catatan: "How do you do?" hanya digunakan saat pertama kali bertemu seseorang.</i></p>
+
+    <br>
+    <h3>2. Informal Greetings</h3>
+    <table>
+        <tr>
+            <th>Expression (Ungkapan)</th>
+            <th>Response (Tanggapan)</th>
+            <th>Meaning (Arti)</th>
+        </tr>
+        <tr>
+            <td>Hello / Hi!</td>
+            <td>Hello / Hi!</td>
+            <td>Halo / Hai!</td>
+        </tr>
+        <tr>
+            <td>What's up?</td>
+            <td>Pretty good. / Not much.</td>
+            <td>Ada apa? / Kabar baik.</td>
+        </tr>
+        <tr>
+            <td>How's life?</td>
+            <td>Great, thanks!</td>
+            <td>Bagaimana kabarmu?</td>
+        </tr>
+    </table>
+
+    <br>
+    <h3>3. Leave-Taking (Pamitan)</h3>
+    <table>
+        <tr>
+            <th>Expression (Ungkapan)</th>
+            <th>Response (Tanggapan)</th>
+            <th>Meaning (Arti)</th>
+        </tr>
+        <tr>
+            <td>Goodbye</td>
+            <td>Goodbye</td>
+            <td>Selamat tinggal</td>
+        </tr>
+        <tr>
+            <td>See you later</td>
+            <td>See you</td>
+            <td>Sampai jumpa nanti</td>
+        </tr>
+        <tr>
+            <td>Good night</td>
+            <td>Good night</td>
+            <td>Selamat tidur / Selamat berpisah di malam hari</td>
+        </tr>
+    </table>
+</div>
+
+<div id="materi2" class="page">
+    <h2>👋 Materi 2: Self & Others Introduction</h2>
+    <div class="card">
+        Materi ini membahas bagaimana cara memperkenalkan diri sendiri (<b>Self-Introduction</b>) dan mengenalkan orang lain (<b>Introducing Others</b>) di lingkungan sekolah maupun tempat kerja (SMK).
+    </div>
+
+    <h3>1. Self-Introduction (Memperkenalkan Diri Sendiri)</h3>
+    <div class="card">
+        <b>Gunakan Pola Berikut:</b><br><br>
+        • <b>Let me introduce myself. My name is...</b> (Izinkan saya memperkenalkan diri. Nama saya...)<br>
+        • <b>I am ... years old.</b> (Saya berusia ... tahun.)<br>
+        • <b>I am a student of SMK Negeri 3 Kendari.</b> (Saya siswa SMK Negeri 3 Kendari.)<br>
+        • <b>My major is ... </b> (Jurusan saya adalah ... ) <br>
+        • <b>I live in... / I come from...</b> (Saya tinggal di... / Saya berasal dari...)
+    </div>
+
+    <h3>Contoh Teks Percakapan Mandiri:</h3>
+    <div class="card" style="background-color: #f8f9fa;">
+        "Good morning, friends. <b>Let me introduce myself.</b> My name is Andi Wijaya. You can call me Andi. I am 16 years old. I am a student of SMK Negeri 3 Kendari, majoring in Computer and Network Engineering. I live in Kendari. Nice to meet you!"
+    </div>
+
+    <br>
+    <h3>2. Introducing Others (Memperkenalkan Orang Lain)</h3>
+    <div class="card">
+        <b>Ungkapan yang digunakan:</b><br><br>
+        • <b>I'd like to introduce you to...</b> (Saya ingin memperkenalkan Anda kepada...)<br>
+        • <b>This is my friend, her/his name is...</b> (Ini teman saya, namanya...)<br>
+        • <b>Have you met...?</b> (Apakah kamu sudah pernah bertemu...?)
+    </div>
+</div>
+
+<div id="latihan" class="page">
+    <h2>✍️ Kuis Latihan Interaktif</h2>
+    <p>Klik pada salah satu pilihan jawaban di bawah ini untuk melihat hasilnya langsung!</p>
+
+    <div class="card">
+        <h4>1. What is the proper response when someone says "How do you do?" for the first time?</h4>
+        <div class="quiz-option" onclick="checkAnswer(this, false)">A. I am fine, thank you.</div>
+        <div class="quiz-option" onclick="checkAnswer(this, true)">B. How do you do?</div>
+        <div class="quiz-option" onclick="checkAnswer(this, false)">C. Good night.</div>
+    </div>
+
+    <div class="card">
+        <h4>2. Siswa SMK ingin mengenalkan diri dan jurusannya. Ungkapan mana yang paling tepat?</h4>
+        <div class="quiz-option" onclick="checkAnswer(this, true)">A. My name is Gina and I am majoring in Information Technology.</div>
+        <div class="quiz-option" onclick="checkAnswer(this, false)">B. Goodbye, I am going to school now.</div>
+        <div class="quiz-option" onclick="checkAnswer(this, false)">C. She is my friend, her name is Gina.</div>
+    </div>
+
+    <div class="card">
+        <h4>3. "See you later" is an expression of...</h4>
+        <div class="quiz-option" onclick="checkAnswer(this, false)">A. Greeting</div>
+        <div class="quiz-option" onclick="checkAnswer(this, true)">B. Leave-taking / Parting</div>
+        <div class="quiz-option" onclick="checkAnswer(this, false)">C. Introduction</div>
+    </div>
+</div>
+
+<div id="game" class="page">
+    <h2>🎮 Game</h2>
+    <div class="card">
+        <h3>Evaluasi Berbasis Game</h3>
+        Untuk menguji pemahaman Anda secara seru, mari mainkan game interaktif yang telah disediakan pada platform Wordwall melalui tombol di bawah ini.
+        <br><br>
+        <a href="https://wordwall.net/id/resource/115780871" target="_blank">
+            <button class="btn" style="background: #ff69b4; color: white;">▶ Mainkan Game di Wordwall</button>
+        </a>
+    </div>
+</div>
+
+<div id="video" class="page">
+    <h2>🎥 Video Pembelajaran</h2>
+    <div class="card">
+        Silakan tonton video penunjang materi Greeting & Introduction di bawah ini untuk mendengarkan pelafalan (pronunciation) yang benar.
+    </div>
+    <br>
+    
+    <div style="text-align: center; padding: 40px 20px; background: #fff0f7; border-radius: 20px; border: 2px dashed #ff69b4;">
+        <p style="font-size: 18px; color: #d63384; margin-bottom: 20px; font-weight: bold;">
+            Tonton Video di YouTube
+        </p>
+        <a href="https://www.youtube.com/watch?v=vdsex0upWy8" target="_blank">
+            <button class="btn" style="background: #ff69b4; color: white; padding: 15px 40px; font-size: 20px;">
+                ▶ Buka Video Pembelajaran
+            </button>
+        </a>
+    </div>
+    
+    <p style="margin-top: 15px; font-size: 14px; color: #666; text-align: center;">
+    </p>
+</div>
+
+<div id="profil" class="page">
+    <h2>👩‍🎓 Profil Penyusun</h2>
+    <div class="card">
+        <b>Nama:</b> Gina Fitria Mursalim
+    </div>
+    <div class="card">
+        <b>Program Studi:</b> Pendidikan Teknologi Informasi
+    </div>
+    <div class="card">
+        <b>Instansi:</b> Universitas Muhammadiyah Kendari
+    </div>
+</div>
+
+<div class="footer">
+    © 2026 Media Pembelajaran Interaktif | Gina Fitria Mursalim
+</div>
+
+</body>
+</html>
